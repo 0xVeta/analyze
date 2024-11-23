@@ -4,12 +4,12 @@ import subprocess
 from pathlib import Path
 
 # Rawdog dir
-rawdog_dir = Path.home() / ".rawdog"
-rawdog_log_path = rawdog_dir / "logs.jsonl"
-rawdog_dir.mkdir(exist_ok=True)
+mercal_dir = Path.home() / ".mercal"
+mercal_log_path = mercal_dir / "logs.jsonl"
+mercal_dir.mkdir(exist_ok=True)
 
 # Command history file
-history_file = rawdog_dir / "cmdline_history"
+history_file = mercal_dir / "cmdline_history"
 
 
 class EnvInfo:
@@ -65,4 +65,4 @@ The user's operating system is {os}.{last_commit}{retries}""".format(
 
 
 def is_finetuned_model(model: str):
-    return "rawdog" in model or "abante" in model
+    return "mercal" in model or "abante" in model

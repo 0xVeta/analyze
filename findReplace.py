@@ -4,8 +4,8 @@ import os
 directory = 'src/mercal/'
 
 # Define the text to find and the text to replace
-text_to_find = "leash"
-text_to_replace = "restrain"
+text_to_find = "rawdog"
+text_to_replace = "mercal"
 
 # Iterate through all files in the directory
 for filename in os.listdir(directory):

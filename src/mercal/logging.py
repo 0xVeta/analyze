@@ -3,8 +3,8 @@ import json
 from textwrap import dedent, indent
 from typing import Optional
 
-from rawdog.parsing import parse_script
-from rawdog.utils import rawdog_dir
+from mercal.parsing import parse_script
+from mercal.utils import mercal_dir
 
 
 def log_conversation(
@@ -43,11 +43,11 @@ def log_conversation(
         """)
 
     if filename is None:
-        script_filename = rawdog_dir / f"script_{timestamp}.py"
+        script_filename = mercal_dir / f"script_{timestamp}.py"
         with open(script_filename, "w") as script_file:
             script_file.write(script)
 
-        latest_script_filename = rawdog_dir / "latest.py"
+        latest_script_filename = mercal_dir / "latest.py"
         with open(latest_script_filename, "w") as script_file:
             script_file.write(script)
     else:

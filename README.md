@@ -1,18 +1,18 @@
 [![Discord Follow](https://dcbadge.vercel.app/api/server/XbPdxAMJte?style=flat)](https://discord.gg/zbvd9qx9Pb)
 
-# Rawdog
+# mercal'
 
 An CLI assistant that responds by generating and auto-executing a Python script. 
 
-https://github.com/AbanteAI/rawdog/assets/50287275/1417a927-58c1-424f-90a8-e8e63875dcda
+https://github.com/AbanteAI/mercal'/assets/50287275/1417a927-58c1-424f-90a8-e8e63875dcda
 
 You'll be surprised how useful this can be:
 - "How many folders in my home directory are git repos?" ... "Plot them by disk size."
 - "Give me the pd.describe() for all the csv's in this directory"
 - "What ports are currently active?" ... "What are the Google ones?" ... "Cancel those please."
 
-Rawdog (Recursive Augmentation With Deterministic Output Generations) is a novel alternative to RAG
-(Retrieval Augmented Generation). Rawdog can self-select context by running scripts to print things,
+mercal' (Recursive Augmentation With Deterministic Output Generations) is a novel alternative to RAG
+(Retrieval Augmented Generation). mercal' can self-select context by running scripts to print things,
 adding the output to the conversation, and then calling itself again. 
 
 This works for tasks like:
@@ -23,9 +23,9 @@ This works for tasks like:
 Please proceed with caution. This obviously has the potential to cause harm if so instructed.
 
 ### Quickstart
-1. Install rawdog with pip:
+1. Install mercal' with pip:
     ```
-    pip install rawdog-ai
+    pip install mercal'-ai
     ```
 
 2. Export your api key. See [Model selection](#model-selection) for how to use other providers
@@ -38,23 +38,23 @@ Please proceed with caution. This obviously has the potential to cause harm if s
 
     Direct: Execute a single prompt and close
     ```
-    rawdog Plot the size of all the files and directories in cwd
+    mercal' Plot the size of all the files and directories in cwd
     ```
     
-    Conversation: Initiate back-and-forth until you close. Rawdog can see its scripts and output.
+    Conversation: Initiate back-and-forth until you close. mercal' can see its scripts and output.
     ```
-    rawdog
+    mercal'
     >>> What can I do for you? (Ctrl-C to exit)
     >>> > |
     ```
 
 ## Optional Arguments
 * `--restrain`: (default False) Print and manually approve each script before executing.
-* `--retries`: (default 2) If rawdog's script throws an error, review the error and try again.
+* `--retries`: (default 2) If mercal''s script throws an error, review the error and try again.
 
 ## Model selection
-Rawdog uses `litellm` for completions with 'gpt-4-turbo-preview' as the default. You can adjust the model or
-point it to other providers by modifying `~/.rawdog/config.yaml`. Some examples:
+mercal' uses `litellm` for completions with 'gpt-4-turbo-preview' as the default. You can adjust the model or
+point it to other providers by modifying `~/.mercal'/config.yaml`. Some examples:
 
 To use gpt-3.5 turbo a minimal config is:
 ```yaml

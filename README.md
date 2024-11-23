@@ -49,7 +49,7 @@ Please proceed with caution. This obviously has the potential to cause harm if s
     ```
 
 ## Optional Arguments
-* `--leash`: (default False) Print and manually approve each script before executing.
+* `--restrain`: (default False) Print and manually approve each script before executing.
 * `--retries`: (default 2) If rawdog's script throws an error, review the error and try again.
 
 ## Model selection

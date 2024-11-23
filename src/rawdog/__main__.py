@@ -1,27 +1,27 @@
 import argparse
 import readline
 
-from rawdog import __version__
-from rawdog.config import add_config_flags_to_argparser, get_config
-from rawdog.execute_script import execute_script
-from rawdog.llm_client import LLMClient
-from rawdog.utils import history_file
+from mercal import __version__
+from mercal.config import add_config_flags_to_argparser, get_config
+from mercal.execute_script import execute_script
+from mercal.llm_client import LLMClient
+from mercal.utils import history_file
 
 
-def rawdog(prompt: str, config, llm_client):
+def mercal(prompt: str, config, llm_client):
     llm_client.add_message("user", prompt)
-    leash = config.get("leash")
+    restrain = config.get("restrain")
     retries = int(config.get("retries"))
     _continue = True
     while _continue is True:
         _continue = False
         error, script, output, return_code = "", "", "", 0
         try:
-            if leash:
+            if restrain:
                 print(80 * "-")
             message, script = llm_client.get_script()
             if script:
-                if leash:
+                if restrain:
                     _ok = input(
                         f"\n{38 * '-'} Execute script in markdown block? (Y/n):"
                     )
@@ -29,7 +29,7 @@ def rawdog(prompt: str, config, llm_client):
                         llm_client.add_message("user", "User chose not to run script")
                         break
                 output, error, return_code = execute_script(script, llm_client)
-            elif not leash and message:
+            elif not restrain and message:
                 print(message)
         except KeyboardInterrupt:
             break
@@ -48,21 +48,33 @@ def rawdog(prompt: str, config, llm_client):
 
 
 def banner(config):
-    if config.get("leash"):
+    if config.get("restrain"):
         print(f"""\
-        / \__
-_      (    @\___   ┳┓┏┓┏ ┓┳┓┏┓┏┓
-  \    /         O  ┣┫┣┫┃┃┃┃┃┃┃┃┓
-   \  /   (_____/   ┛┗┛┗┗┻┛┻┛┗┛┗┛
-    \/\/\/\/   U    Rawdog v{__version__}
-          OO""")
+                                    .__   
+  _____   ___________   ____ _____  |  |  
+ /     \_/ __ \_  __ \_/ ___\\__  \ |  |  
+|  Y Y  \  ___/|  | \/\  \___ / __ \|  |__
+|__|_|  /\___  >__|    \___  >____  /____/
+      \/     \/            \/     \/      
+           Mercal version {__version__}   
+          """)
     else:
         print(f"""\
-   / \__
-  (    @\___   ┳┓┏┓┏ ┓┳┓┏┓┏┓
-  /         O  ┣┫┣┫┃┃┃┃┃┃┃┃┓
- /   (_____/   ┛┗┛┗┗┻┛┻┛┗┛┗┛
-/_____/   U    Rawdog v{__version__}""")
+                                    .__                             
+  _____   ___________   ____ _____  |  |                            
+ /     \_/ __ \_  __ \_/ ___\\__  \ |  |                            
+|  Y Y  \  ___/|  | \/\  \___ / __ \|  |__                          
+|__|_|  /\___  >__|    \___  >____  /____/                          
+      \/     \/            \/     \/                                
+                         __                .__                  .___
+_______   ____   _______/  |_____________  |__| ____   ____   __| _/
+\_  __ \_/ __ \ /  ___/\   __\_  __ \__  \ |  |/    \_/ __ \ / __ | 
+ |  | \/\  ___/ \___ \  |  |  |  | \// __ \|  |   |  \  ___// /_/ | 
+ |__|    \___  >____  > |__|  |__|  (____  /__|___|  /\___  >____ | 
+             \/     \/                   \/        \/     \/     \/ 
+           Mercal version {__version__}
+
+""")
 
 
 def main():
@@ -86,7 +98,7 @@ def main():
     readline.set_history_length(1000)
 
     if len(args.prompt) > 0:
-        rawdog(" ".join(args.prompt), config, llm_client)
+        mercal(" ".join(args.prompt), config, llm_client)
     else:
         banner(config)
         while True:
@@ -99,7 +111,7 @@ def main():
                 # Save history after each command to avoid losing it in case of crash
                 readline.write_history_file(history_file)
                 print("")
-                rawdog(prompt, config, llm_client)
+                mercal(prompt, config, llm_client)
             except KeyboardInterrupt:
                 print("Exiting...")
                 break

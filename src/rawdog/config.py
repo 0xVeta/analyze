@@ -1,9 +1,9 @@
 import yaml
 
-from rawdog import __version__
-from rawdog.utils import rawdog_dir
+from mercal import __version__
+from mercal.utils import mercal_dir
 
-config_path = rawdog_dir / "config.yaml"
+config_path = mercal_dir / "config.yaml"
 
 
 default_config = {
@@ -14,14 +14,14 @@ default_config = {
     "llm_custom_provider": None,
     "llm_temperature": 1.0,
     "retries": 2,
-    "leash": False,
+    "restrain": False,
 }
-# NOTE: dry-run was replaced with leash on v0.1.4. There is code below to handle
+# NOTE: dry-run was replaced with restrain on v0.1.4. There is code below to handle
 # the transition, which should be removed eventually.
 
 setting_descriptions = {
     "retries": "If the script fails, retry this many times before giving up.",
-    "leash": "Print the script before executing and prompt for confirmation.",
+    "restrain": "Print the script before executing and prompt for confirmation.",
     "pip_model": "The model to use to get package name from import name.",
 }
 
@@ -42,11 +42,11 @@ def read_config_file():
             }
             if missing_fields:
                 print(f"Updating config file {config_path} for version {__version__}:")
-                if "leash" in missing_fields and _config.get("dry_run"):
-                    missing_fields["leash"] = True
+                if "restrain" in missing_fields and _config.get("dry_run"):
+                    missing_fields["restrain"] = True
                     del _config["dry_run"]
                     print(
-                        "  - dry_run: deprecated on v0.1.4, setting leash=True instead"
+                        "  - dry_run: deprecated on v0.1.4, setting restrain=True instead"
                     )
                 for k, v in missing_fields.items():
                     print(f"  + {k}: {v}")
@@ -72,7 +72,7 @@ def add_config_flags_to_argparser(parser):
         else:
             parser.add_argument(f"--{normalized}", default=None, help=help_text)
     parser.add_argument(
-        "--dry-run", action="store_true", help="Deprecated, use --leash instead)"
+        "--dry-run", action="store_true", help="Deprecated, use --restrain instead)"
     )
 
 
@@ -87,5 +87,5 @@ def get_config(args=None):
         config = {**config, **config_args}
     if config.get("dry_run"):
         del config["dry_run"]
-        print("Warning: --dry-run is deprecated, use --leash instead")
+        print("Warning: --dry-run is deprecated, use --restrain instead")
     return config

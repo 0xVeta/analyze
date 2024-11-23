@@ -5,12 +5,12 @@ import sys
 import tempfile
 from subprocess import DEVNULL
 
-from rawdog.utils import rawdog_dir
+from mercal.utils import mercal_dir
 
 
 # Script execution environment
-def get_rawdog_python_executable():
-    venv_dir = rawdog_dir / "venv"
+def get_mercal_python_executable():
+    venv_dir = mercal_dir / "venv"
     if platform.system() == "Windows":
         python_executable = venv_dir / "Scripts" / "python"
     else:
@@ -27,7 +27,7 @@ def get_rawdog_python_executable():
 
 
 def install_pip_packages(*packages: str):
-    python_executable = get_rawdog_python_executable()
+    python_executable = get_mercal_python_executable()
     print(f"Installing {', '.join(packages)} with pip...")
     return subprocess.run(
         [python_executable, "-m", "pip", "install", *packages],
@@ -37,10 +37,10 @@ def install_pip_packages(*packages: str):
 
 
 def _execute_script_in_subprocess(script) -> tuple[str, str, int]:
-    """Write script to tempfile, execute from .rawdog/venv, stream and return output"""
+    """Write script to tempfile, execute from .mercal/venv, stream and return output"""
     output, error, return_code = "", "", 0
     try:
-        python_executable = get_rawdog_python_executable()
+        python_executable = get_mercal_python_executable()
         with tempfile.NamedTemporaryFile(mode="w+", delete=False) as tmp_script:
             tmp_script_name = tmp_script.name
             tmp_script.write(script)
@@ -87,7 +87,7 @@ def _execute_script_with_dependency_resolution(
                 module_name = llm_client.get_python_package(module)
                 if (
                     input(
-                        f"Rawdog wants to use {module_name}. Install to rawdog's"
+                        f"mercal wants to use {module_name}. Install to mercal's"
                         " venv with pip? (Y/n): "
                     )
                     .strip()

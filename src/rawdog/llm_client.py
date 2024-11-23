@@ -4,10 +4,10 @@ from textwrap import dedent
 
 from litellm import completion, completion_cost
 
-from rawdog.logging import log_conversation
-from rawdog.parsing import parse_script
-from rawdog.prompts import script_examples, script_prompt
-from rawdog.utils import EnvInfo, is_finetuned_model, rawdog_log_path
+from mercal.logging import log_conversation
+from mercal.parsing import parse_script
+from mercal.prompts import script_examples, script_prompt
+from mercal.utils import EnvInfo, is_finetuned_model, mercal_log_path
 
 
 class LLMClient:
@@ -25,7 +25,7 @@ class LLMClient:
                     "It looks like you're using a GPT model without an API key. You can"
                     " add your API key by setting the OPENAI_API_KEY environment"
                     " variable or by adding an llm_api_key field to"
-                    " ~/.rawdog/config.yaml. If this was intentional, you can ignore"
+                    " ~/.mercal/config.yaml. If this was intentional, you can ignore"
                     " this message."
                 )
 
@@ -131,6 +131,6 @@ class LLMClient:
             print("Error:\n", str(log))
             raise e
         finally:
-            with open(rawdog_log_path, "a") as f:
+            with open(mercal_log_path, "a") as f:
                 f.write(json.dumps(log) + "\n")
         return parse_script(text)

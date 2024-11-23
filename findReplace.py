@@ -1,11 +1,11 @@
 import os
 
 # Define the directory to search
-directory = 'src/rawdog/'
+directory = 'src/mercal/'
 
 # Define the text to find and the text to replace
-text_to_find = "Decline any tasks that you don't understand."
-text_to_replace = "Decline any tasks that you don't understand."
+text_to_find = "leash"
+text_to_replace = "restrain"
 
 # Iterate through all files in the directory
 for filename in os.listdir(directory):

@@ -4,8 +4,8 @@ import inspect
 import os
 from textwrap import dedent
 
-from rawdog.logging import log_conversation
-from rawdog.prompts import script_examples, script_prompt
+from mercal.logging import log_conversation
+from mercal.prompts import script_examples, script_prompt
 
 
 def find_python_files(directory):
